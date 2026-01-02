@@ -4,6 +4,7 @@ import os
 from dotenv import load_dotenv
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
+from youtubesearchpython import VideosSearch
 
 #load env variables
 load_dotenv()
@@ -25,12 +26,11 @@ def main():
                 )
         #create a spotify object
         sp = spotipy.Spotify(client_credentials_manager = client_credentials_manager)
-        result = sp.playlist(playlist_id)
+        playlist_data = sp.playlist(playlist_id)
         print("Connection was successful")
-        print(f"Your playlist name is: {result['name']}")
+        print(f"Your playlist name is: {playlist_data['name']}")
 
         #step 2 is to get the playlist data
-        playlist_data = sp.playlist(playlist_id)
         tracks = playlist_data['tracks']['items']
         songs = []
         #loop through the items in my tracks list
@@ -44,7 +44,13 @@ def main():
                     }
             #append to the dictionar: songs
             songs.append(song_info)
-
+        #step 3 is to find the songs on YouTube
+        for song in songs:
+            #for each song create a search query
+            search = VideosSearch(f"{song['track_name']} by {song['artist_name']} official audio", limit=1) #set the max num of search res return to 1
+            result = search.result()
+            video_url = result ['result'][0]['link'] #get the vid link
+            
 
     except Exception as e:
         print(f"Connection failed: {e}")
