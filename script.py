@@ -28,12 +28,26 @@ def main():
         result = sp.playlist(playlist_id)
         print("Connection was successful")
         print(f"Your playlist name is: {result['name']}")
+
+        #step 2 is to get the playlist data
+        playlist_data = sp.playlist(playlist_id)
+        tracks = playlist_data['tracks']['items']
+        songs = []
+        #loop through the items in my tracks list
+        for item in tracks:
+            #extract the data I want
+            track = item['track']
+            song_info ={
+                    'track_name': track['name'],
+                    'artist_name': track['artists'][0]['name'], #get the first/main artists name
+                    'album_name': track['album']['name']
+                    }
+            #append to the dictionar: songs
+            songs.append(song_info)
+
+
     except Exception as e:
         print(f"Connection failed: {e}")
-    
-    #step 2 is to get the playlist data
-    playlist_data = sp.playlist(playlist_id)
-    tracks = playlist_data['tracks']['items']
 
 def GetId(url):
     #parse the url to get the playlist id
