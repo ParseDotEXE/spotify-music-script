@@ -84,7 +84,7 @@ def download_yt_vids(url):
             }
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             ydl.download([url])
-        print("Download completed successfull! Audios saved to 'songsDownloaded'")
+        print("Download completed successfully! Audios saved to 'songsDownloaded'")
     except yt_dlp.utils.DownloadError as de:
         #print the error message
         print(f"Download error: {str(de)}")

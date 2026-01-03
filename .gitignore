@@ -1,0 +1,24 @@
+# Environment variables
+.env
+
+# Downloaded songs folder
+songsDownloaded/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environment
+venv/
+env/
+ENV/
+
+# IDE settings
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
